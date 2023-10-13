@@ -11,14 +11,16 @@ x1=1536#x resolution
 y1=888#y resolution
 o = lambda a: a/x1
 p= lambda a:a/y1
-def login(nm,p):
+def login(nm,p,pro):
         with open("logindata.csv",'r') as f:
             for i in csv.reader(f):
                 #   print(i)
                 if i[0]==nm:
                         if i[3]==p:
-                            messagebox.showinfo("Login", "Login Successful")
-                            return(i[1])
+                            if i[2] == pro:
+                                messagebox.showinfo("Login", "Login Successful")
+                                return(i[1])
+                            else: return("PROFESSION")
                         else:
                             return("PASSWORD")     
             else:
@@ -45,9 +47,10 @@ def main():
             nm = name_var.get()
             pro = pro_var.get().lower()
             pwd = pass_var.get()
-            ans = login(nm,pwd)
+            ans = login(nm,pwd,pro)
             if ans == 'PASSWORD':x("PASSWORD")
             elif ans == "USERNAME":x('USERNAME')
+            elif ans == "PROFESSION": x("PROFESSION")
             else:
                 ching[0]=pro
                 ching[1]=ans
